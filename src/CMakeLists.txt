@@ -57,28 +57,40 @@ endif()
 #This section is already populated with default values from: ../../../include/cmake/aftrModuleCommonProjectIncludesAndLibs.cmake
 IF( WIN32 ) #MSVC Compiler library paths
    TARGET_LINK_LIBRARIES( ${PROJECT_NAME} PRIVATE
-                optimized "C:/repos/aftr/usr/include/PhysX/release/PhysXCommon_64.lib"
-                    debug "C:/repos/aftr/usr/include/PhysX/debug/PhysXCommon_64.lib"
-                optimized "C:/repos/aftr/usr/include/PhysX/release/PhysX_64.lib"
-                    debug "C:/repos/aftr/usr/include/PhysX/debug/PhysX_64.lib"
-                optimized "C:/repos/aftr/usr/include/PhysX/release/PhysXFoundation_64.lib"
-                    debug "C:/repos/aftr/usr/include/PhysX/debug/PhysXFoundation_64.lib"
-                optimized "C:/repos/aftr/usr/include/PhysX/release/PhysXExtensions_static_64.lib"
-                    debug "C:/repos/aftr/usr/include/PhysX/debug/PhysXExtensions_static_64.lib"
-                optimized "C:/repos/aftr/usr/include/PhysX/release/PhysXPvdSDK_static_64.lib"
-                    debug "C:/repos/aftr/usr/include/PhysX/debug/PhysXPvdSDK_static_64.lib"
-                optimized "C:/repos/aftr/usr/include/PhysX/release/PhysXCooking_64.lib"
-                    debug "C:/repos/aftr/usr/include/PhysX/debug/PhysXCooking_64.lib"
-                    optimized "C:/repos/aftr/usr/include/PhysX/release/PhysXCharacterKinematic_static_64.lib"
-                    debug "C:/repos/aftr/usr/include/PhysX/debug/PhysXCharacterKinematic_static_64.lib"  
-                optimized "C:/repos/aftr/usr/include/irrKlang-64bit-1.6.0/lib/Winx64-visualStudio/irrKlang.lib"
-                    debug "C:/repos/aftr/usr/include/irrKlang-64bit-1.6.0/lib/Winx64-visualStudio/irrKlang.lib" 
+                optimized "${CMAKE_SOURCE_DIR}/../PhysX/release/PhysXCommon_64.lib"
+                    debug "${CMAKE_SOURCE_DIR}/../PhysX/debug/PhysXCommon_64.lib"
+                optimized "${CMAKE_SOURCE_DIR}/../PhysX/release/PhysX_64.lib"
+                    debug "${CMAKE_SOURCE_DIR}/../PhysX/debug/PhysX_64.lib"
+                optimized "${CMAKE_SOURCE_DIR}/../PhysX/release/PhysXFoundation_64.lib"
+                    debug "${CMAKE_SOURCE_DIR}/../PhysX/debug/PhysXFoundation_64.lib"
+                optimized "${CMAKE_SOURCE_DIR}/../PhysX/release/PhysXExtensions_static_64.lib"
+                    debug "${CMAKE_SOURCE_DIR}/../PhysX/debug/PhysXExtensions_static_64.lib"
+                optimized "${CMAKE_SOURCE_DIR}/../PhysX/release/PhysXPvdSDK_static_64.lib"
+                    debug "${CMAKE_SOURCE_DIR}/../PhysX/debug/PhysXPvdSDK_static_64.lib"
+                optimized "${CMAKE_SOURCE_DIR}/../PhysX/release/PhysXCooking_64.lib"
+                    debug "${CMAKE_SOURCE_DIR}/../PhysX/debug/PhysXCooking_64.lib"
+                optimized "${CMAKE_SOURCE_DIR}/../PhysX/release/PhysXCharacterKinematic_static_64.lib"
+                    debug "${CMAKE_SOURCE_DIR}/../PhysX/debug/PhysXCharacterKinematic_static_64.lib"  
+                optimized "${CMAKE_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio/irrKlang.lib"
+                    debug "${CMAKE_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio/irrKlang.lib" 
                 #optimized "${AFTR_USERLAND_LIB_PATH}/mySampleLibraryNeededInThisModule.lib"
                 #    debug "${AFTR_USERLAND_LIB_PATH}/mySampleLibraryNeededInThisModule_debug.lib"
                 #optimized "${CMAKE_SOURCE_DIR}/lib${AFTR_NBITS}/myLocalLib.lib" #Located in ../lib64/ or ../lib32/
                 #    debug "${CMAKE_SOURCE_DIR}/lib${AFTR_NBITS}/myLocalLib.lib"
                          )
 ENDIF()
+
+
+IF( WIN32 )
+   add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy_if_different
+         "${CMAKE_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/Winx64-visualStudio/irrKlang.dll"
+         "$<TARGET_FILE_DIR:Assign_5>"
+      COMMENT "Copying irrKlang.dll to output directory"
+   )
+ENDIF()
+
+
 
 #This section is already populated with default values from: ../../../include/cmake/aftrModuleCommonProjectIncludesAndLibs.cmake
 IF( UNIX ) #Linux, Apple, *NIX platforms (see ../../../include/cmake/aftrModuleCommonProjectIncludesAndLibs.cmake for more details)
@@ -92,8 +104,8 @@ ENDIF()
 #This section is already populated with default values from: ../../../include/cmake/aftrModuleCommonProjectIncludesAndLibs.cmake
 #This can be made WIN32 or UNIX specific, depending on the platform, if desired.
 TARGET_INCLUDE_DIRECTORIES( ${PROJECT_NAME} PRIVATE 
-                           "C:/repos/aftr/usr/include/PhysX/include"
-                           "C:/repos/aftr/usr/include/irrKlang-64bit-1.6.0/include"
+                           "${CMAKE_SOURCE_DIR}/../PhysX/include"
+                           "${CMAKE_SOURCE_DIR}/../irrKlang-64bit-1.6.0/include"
                            #"${CMAKE_SOURCE_DIR}/../my3rdPartyLib/include/"
                           )
 
