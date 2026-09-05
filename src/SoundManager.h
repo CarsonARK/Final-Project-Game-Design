@@ -35,7 +35,7 @@ public:
 			tankMoving = engine->addSoundSourceFromFile((Aftr::ManagerEnvironmentConfiguration::getLMM() + "sounds/tankmoving.wav").c_str());
 			tankFiring = engine->addSoundSourceFromFile((Aftr::ManagerEnvironmentConfiguration::getLMM() + "sounds/ShellShockLiveFire.wav").c_str());
 
-			tankMoving->setDefaultVolume(0.25f);
+			tankMoving->setDefaultVolume(0.35f);
 
 			playerOneTankMoving = engine->play3D(tankMoving, irrklang::vec3df(0, 0, 0), true, false, true);
 			playerTwoTankMoving = engine->play3D(tankMoving, irrklang::vec3df(0, 0, 0), true, false, true);
